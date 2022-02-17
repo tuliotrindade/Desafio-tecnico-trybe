@@ -59,7 +59,7 @@ function App() {
       status
     };
     await api.updateTask(_id, data);
-    setTodos(todos.filter(todo => todo._id === _id));
+    setTodos([...todos, data]);
     setShowEdit(false);
   };
 
@@ -80,7 +80,6 @@ function App() {
         value={edit.name}
         onChange={(e) => setEdit({...edit, name: e.target.value})}
       />
-
       <label htmlFor="description">description</label>
       <input
         type="text"
@@ -141,6 +140,7 @@ function App() {
           value={todo.status}
           onChange={(e) => setTodo({...todo, status: e.target.value})}
         >
+          <option>N/A</option>
           <option value="incompleta" >Incompleta</option>
           <option value="em andamento">Em andamento</option>
           <option value="completa">completa</option>
