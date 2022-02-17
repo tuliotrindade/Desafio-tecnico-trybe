@@ -28,7 +28,6 @@ const updateTask = async (req, res) => {
 const deleteTask = async (req, res) => {
   const { id } = req.params;
   const deleted = await taskModels.deleteTask(id);
-  console.log(deleted.err)
   if (deleted.err) {
     return res
       .status(422)

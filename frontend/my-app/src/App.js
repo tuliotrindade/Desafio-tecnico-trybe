@@ -52,25 +52,26 @@ function App() {
   }
 
   const updateTodo = async () => {
-    const { name, description, status, _id } = edit
+    const { name, description, status, _id } = edit;
     const data = {
       name,
       description,
       status
-    }
-    await api.updateTask(_id, data)
-    setTodos(todos.filter(todo => todo._id === _id))
-  }
+    };
+    await api.updateTask(_id, data);
+    setTodos(todos.filter(todo => todo._id === _id));
+    setShowEdit(false);
+  };
 
   const sumbitEdit = () => {
-    updateTodo()
-  }
+    updateTodo();
+  };
 
   const renderForm = () => {
     return (
       <form
       onSubmit={sumbitEdit}>
-      <h1> new task </h1>
+      <h1> Edit Task </h1>
       <label htmlFor="title">task name</label>
       <input 
         type="text"
@@ -109,39 +110,42 @@ function App() {
 
   return (
     <div className="App">
-      
     <form
       onSubmit={handleSubmit}>
       <h1> new task </h1>
-      <label htmlFor="title">task name</label>
-      <input 
-        type="text"
-        name="name"
-        id="name"
-        value={todo.name}
-        onChange={(e) => setTodo({...todo, name: e.target.value})}
-      />
-
-      <label htmlFor="description">description</label>
-      <input
-        type="text"
-        name="description"
-        id="description"
-        value={todo.description}
-        onChange={(e) => setTodo({...todo, description: e.target.value})}
-      />
-
-      <label htmlFor="status">status</label>
-      <select 
-        name="status" 
-        id="status"
-        value={todo.status}
-        onChange={(e) => setTodo({...todo, status: e.target.value})}
-      >
-        <option value="incompleta" >Incompleta</option>
-        <option value="em andamento">Em andamento</option>
-        <option value="completa">completa</option>
-      </select>
+      <label htmlFor="title">
+        Task name: 
+        <input 
+          type="text"
+          name="name"
+          id="name"
+          value={todo.name}
+          onChange={(e) => setTodo({...todo, name: e.target.value})}
+        />
+      </label>
+      <label htmlFor="description">
+        Description: 
+        <input
+          type="text"
+          name="description"
+          id="description"
+          value={todo.description}
+          onChange={(e) => setTodo({...todo, description: e.target.value})}
+        />
+      </label>
+      <label htmlFor="status">
+        status
+        <select 
+          name="status" 
+          id="status"
+          value={todo.status}
+          onChange={(e) => setTodo({...todo, status: e.target.value})}
+        >
+          <option value="incompleta" >Incompleta</option>
+          <option value="em andamento">Em andamento</option>
+          <option value="completa">completa</option>
+        </select>
+      </label>
       <input
         type='submit'
       />
@@ -154,9 +158,8 @@ function App() {
             <p>{name}</p>
             <p>{description}</p>
             <p>{status}</p>
-          <span onClick={e => deleteTodo(e, _id)}>X</span>
-          <span onClick={(e) => {
-            e.stopPropagation();
+          <span onClick={() => deleteTodo(_id)}>DELETE</span>
+          <span onClick={() => {
             setShowEdit(true);
             setEdit({
               name,
@@ -165,7 +168,7 @@ function App() {
               _id,
             })
           }
-          }>edit</span>
+          }>EDIT</span>
           </li>
         ))}
       </ul>
